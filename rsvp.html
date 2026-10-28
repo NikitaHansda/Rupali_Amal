@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .rsvp-thanks { max-width: 520px; margin: 0 auto; padding: 20px 0 10px; }
+    .rsvp-thanks h2 { font-family: 'Great Vibes', cursive; font-weight: 400; font-size: clamp(44px, 9vw, 64px); margin-bottom: 12px; }
+    .rsvp-thanks p  { font-size: clamp(16px, 4.2vw, 20px); line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <script src="nav.js"></script>
+
+  <!-- Photo section: striped wave on top, green wave at the bottom -->
+  <section class="hero hero--photo hero--short hero--green">
+    <img src="Image/JEF_1765.JPG.jpeg" alt="">
+    <div class="hero-text">
+      <h1></h1>
+      <p>Please fill out the RSVP form below.</p>
+    </div>
+  </section>
+
+  <!-- Green section: flat top (the photo's wave flows into it), paper wave at the bottom -->
+  <section class="green green--flat-top green--wave-bottom">
+    <h2>RSVP</h2>
+    <p class="green-text">Your presence would mean the world to us!<br>
+ let us know if you’ll be joining us for our wedding celebrations. We can’t wait to celebrate this special beginning with you. <br>Thank you!</p>
+  </section>
+
+  <main class="sub-page">
+
+    <!-- Hidden window: Google receives the answers here, the guest never leaves your site -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none" title="hidden"></iframe>
+
+    <!-- Answers go to your Google Form (the codes below come from its pre-filled link) -->
+    <form class="rsvp-form" id="rsvp-form"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSdSpSNW5UBYOZmE6GH0DJYu7aNcdpea6CX9uRx_VnMUnZdCGA/formResponse"
+          method="POST" target="hidden_iframe">
+      <label>Full name
+        <input type="text" name="entry.1306659341" required>
+      </label>
+      <label>Email
+        <input type="email" name="entry.1979853320" required>
+      </label>
+      <label>Will you attend?
+        <select name="entry.1421273474" required>
+          <option value="">Choose</option>
+          <option value="Joyfully accepts">Joyfully accepts</option>
+          <option value="Regretfully declines">Regretfully declines</option>
+        </select>
+      </label>
+      <label>Number of guests
+        <input type="number" name="entry.267892834" min="1" max="10" value="1">
+      </label>
+      <label>Message
+        <textarea name="entry.1203472531" rows="4"></textarea>
+      </label>
+      <button class="pill-btn" type="submit" id="rsvp-send">Send RSVP</button>
+    </form>
+
+    <!-- Shown after the guest presses Send -->
+    <div class="rsvp-thanks" id="rsvp-thanks" hidden>
+      <h2>Thank you!</h2>
+      <p>We've received your RSVP and truly appreciate you taking the time to let us know. We're grateful to have you as part of our journey❤️.</p>
+    </div>
+
+    <script>
+      var form   = document.getElementById('rsvp-form');
+      var frame  = document.getElementById('hidden_iframe');
+      var thanks = document.getElementById('rsvp-thanks');
+      var sent   = false;
+
+      form.addEventListener('submit', function () {
+        sent = true;
+        document.getElementById('rsvp-send').textContent = 'Sending...';
+      });
+
+      /* when Google has answered in the hidden window, show the thank-you message */
+      frame.addEventListener('load', function () {
+        if (!sent) return;
+        form.style.display = 'none';
+        thanks.hidden = false;
+      });
+    </script>
+  </main>
+</body>
+</html>
